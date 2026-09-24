@@ -7,12 +7,13 @@ namespace MapOfTheProblematque.Data
 {
     public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext(options)
     {
-    
-       
-    public DbSet<Problem> Problem { get; set; }
-    public DbSet<City> City { get; set; }
+
+
+        public DbSet<Problem> Problem { get; set; }
+        public DbSet<City> City { get; set; }
+        public DbSet<Country> Country { get; set; }
 
 
     }
-     
-    }
+
+}

@@ -40,14 +40,22 @@
 
         </div>
         <div class="form-group">
+            <label asp-for="Country" class="control-label"></label>
+            <select asp-for="CountryId" class="form-control" asp-items="ViewBag.Countries" onchange="getCities(this.value)">
+                <option value="">-- Select Country --</option>
+            </select>
+            <span asp-validation-for="Country" class="text-danger"></span>
+
+        </div>
+        <div class="form-group">
             <label asp-for="City" class="control-label"></label>
-            <select asp-for="CityId" class="form-control" asp-items="ViewBag.Cities" onchange="getStates(this.value)">
+            <select asp-for="CityId" class="form-control" asp-items="ViewBag.Cities">
                 <option value="">-- Select City --</option>
             </select>
             <span asp-validation-for="CityId" class="text-danger"></span>
 
         </div>
-
+        
 
      
         <div class="form-group mt-3">
@@ -69,14 +77,14 @@
     }
 }
 <script>
-    function getStates(countryId) {
+    function getCities(countryId) {
 //This method will be used to fetch states of the selecteed coutnry
         alert(countryId);
         return;
         // Display the selected country ID in an alert
         // Make an AJAX request to fetch states based on the selected country
         $.ajax({
-            url: '/YourController/GetStates', // Replace with your actual controller and action
+            url: '/Problem/GetCities', // Replace with your actual controller and action
             type: 'GET',
             data: { countryId: countryId },
             success: function(data) {
@@ -85,8 +93,8 @@
                 stateDropdown.empty(); // Clear existing options
                 $.each(data, function(index, state) {
                     stateDropdown.append($('<option>', {
-                        value: state.id,
-                        text: state.name
+                        value: City.id,
+                        text: City.name
                     }));
                 });
             },
