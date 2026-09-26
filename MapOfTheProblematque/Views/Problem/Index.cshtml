@@ -30,9 +30,9 @@
                     </select>
                 </div>
                 <div class="col-md-auto">
-                    <label for="City" class="form-label">City</label>
-                    <select name="CityId" id="CityId" class="form-select" asp-items="ViewBag.Cities">
-                        <option value="">-- Select City --</option>
+                    <label for="Country" class="form-label">Country</label>
+                    <select name="CountryId" id="CountryId" class="form-select" asp-items="ViewBag.Countries">
+                        <option value="">-- Select Country --</option>
                     </select>
                 </div>
 
@@ -51,7 +51,8 @@
             <th>@Html.DisplayNameFor(model => model.Description)</th>
             <th>@Html.DisplayNameFor(model => model.Category)</th>
             <th>@Html.DisplayNameFor(model => model.Priority)</th>
-            <th>City</th>
+            <th>@Html.DisplayNameFor(model => model.Country)</th>
+            
         </tr>
     </thead>
     <tbody>

@@ -11,6 +11,7 @@ namespace MapOfTheProblematque.Data
 
         public DbSet<Problem> Problem { get; set; }
         public DbSet<Country> Country { get; set; }
+        public DbSet<City> City { get; set; }
         
 
 
