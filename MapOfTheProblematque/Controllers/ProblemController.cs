@@ -16,10 +16,10 @@ namespace MapOfTheProblematque.Controllers
             _context = context;
 
         }
-        public IActionResult Index(string Name, string Description, string Category, int CountryId)
+        public IActionResult Index(string Name, string Description, string Category, int CityId)
         {
 
-            var problems = _context.Problem.Include(c => c.Country).AsQueryable();
+            var problems = _context.Problem.Include(c => c.City).AsQueryable();
             if (!string.IsNullOrEmpty(Name))
             {
                 problems = problems.Where(p => p.Name.Contains(Name));
@@ -33,16 +33,16 @@ namespace MapOfTheProblematque.Controllers
                 problems = problems.Where(p => p.Category == Category);
 
             }
-            if (CountryId != 0)
+            if (CityId != 0)
             {
-                problems = problems.Where(p => p.CountryId == CountryId);
+                problems = problems.Where(p => p.CityId == CityId);
             }
 
             var problemTypes = LookUp.GetProblemTypes();
 
 
             ViewBag.ProblemType = new SelectList(problemTypes, "Value", "Text");
-            ViewBag.Country = new SelectList(_context.Country, "Id", "Name");
+            ViewBag.Cities = new SelectList(_context.City, "Id", "Name");
 
             return View(problems.ToList());
         }
@@ -55,7 +55,7 @@ namespace MapOfTheProblematque.Controllers
 
 
             ViewBag.ProblemType = new SelectList(problemTypes, "Value", "Text");
-            ViewBag.Countries = new SelectList(_context.Country, "Id", "Name");
+            ViewBag.Cities = new SelectList(_context.City, "Id", "Name");
             return View();
         }
 
@@ -77,7 +77,7 @@ namespace MapOfTheProblematque.Controllers
             var problemTypes = LookUp.GetProblemTypes();
 
             ViewBag.ProblemType = new SelectList(problemTypes, "Value", "Text");
-            ViewBag.Countries = new SelectList(_context.Country, "Id", "Name");
+            ViewBag.Cities = new SelectList(_context.City, "Id", "Name");
 
             return View(problem);
         }
@@ -99,7 +99,7 @@ namespace MapOfTheProblematque.Controllers
 
 
             ViewBag.ProblemType = new SelectList(problemTypes, "Value", "Text");
-            ViewBag.Countries = new SelectList(_context.Country, "Id", "Name");
+            ViewBag.Cities = new SelectList(_context.City, "Id", "Name");
             if (id == null)
             {
                 return RedirectToAction(nameof(Index));
@@ -120,7 +120,7 @@ namespace MapOfTheProblematque.Controllers
              
 
             ViewBag.ProblemType = new SelectList(problemTypes, "Value", "Text");
-            ViewBag.Country = new SelectList(_context.Country, "Id", "Name");
+            ViewBag.City = new SelectList(_context.City, "Id", "Name");
             if (id != problem.Id)
             {
                 return RedirectToAction(nameof(Index));
@@ -163,9 +163,9 @@ namespace MapOfTheProblematque.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult GetCities(int countryId)
+        public IActionResult GetCities(int CityId)
         {
-            var Cities = _context.City.Where()
+            return Json(_context.City.Where(c => c.Id == CityId).Select(c => new { c.Id, c.Name }).ToList());
 
         }
         public async Task<JsonResult> IsProblemAvailable(string Name, int? id)
