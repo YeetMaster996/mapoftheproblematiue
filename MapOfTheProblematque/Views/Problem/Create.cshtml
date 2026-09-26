@@ -41,18 +41,18 @@
         </div>
        @*  <div class="form-group">
             <label asp-for="Country" class="control-label"></label>
-            <select asp-for="CountryId" class="form-control" asp-items="ViewBag.Countries" onchange="getCities(this.value)">
+            <select asp-for="CountryId" class="form-control" asp-items="ViewBag.Countries" onchange="getCountries(this.value)">
                 <option value="">-- Select Country --</option>
             </select>
             <span asp-validation-for="Country" class="text-danger"></span>
 
         </div> *@
         <div class="form-group">
-            <label asp-for="City" class="control-label"></label>
-            <select asp-for="CityId" class="form-control" asp-items="ViewBag.Cities">
-                <option value="">-- Select City --</option>
+            <label asp-for="Country" class="control-label"></label>
+            <select asp-for="CountryId" class="form-control" asp-items="ViewBag.Countries">
+                <option value="">-- Select Country --</option>
             </select>
-            <span asp-validation-for="CityId" class="text-danger"></span>
+            <span asp-validation-for="CountryId" class="text-danger"></span>
 
         </div>
         

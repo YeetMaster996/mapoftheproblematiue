@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MapOfTheProblematque.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260901183229_CityOtherTable")]
-    partial class CityOtherTable
+    [Migration("20260926080042_redid")]
+    partial class redid
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,13 +33,35 @@ namespace MapOfTheProblematque.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CountryId");
+
                     b.ToTable("City");
+                });
+
+            modelBuilder.Entity("MapOfTheProblematique.Models.Country", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Country");
                 });
 
             modelBuilder.Entity("MapOfTheProblematque.Models.Problem", b =>
@@ -54,7 +76,7 @@ namespace MapOfTheProblematque.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("CityId")
+                    b.Property<int>("CountryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -70,7 +92,7 @@ namespace MapOfTheProblematque.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CityId");
+                    b.HasIndex("CountryId");
 
                     b.ToTable("Problem");
                 });
@@ -277,15 +299,26 @@ namespace MapOfTheProblematque.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("MapOfTheProblematque.Models.Problem", b =>
+            modelBuilder.Entity("MapOfTheProblematique.Models.City", b =>
                 {
-                    b.HasOne("MapOfTheProblematique.Models.City", "City")
-                        .WithMany()
-                        .HasForeignKey("CityId")
+                    b.HasOne("MapOfTheProblematique.Models.Country", "Country")
+                        .WithMany("Cities")
+                        .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("City");
+                    b.Navigation("Country");
+                });
+
+            modelBuilder.Entity("MapOfTheProblematque.Models.Problem", b =>
+                {
+                    b.HasOne("MapOfTheProblematique.Models.Country", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Country");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -337,6 +370,11 @@ namespace MapOfTheProblematque.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MapOfTheProblematique.Models.Country", b =>
+                {
+                    b.Navigation("Cities");
                 });
 #pragma warning restore 612, 618
         }
