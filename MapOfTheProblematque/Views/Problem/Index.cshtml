@@ -37,6 +37,7 @@
                 </div>
 
 
+
                 <div class="col-md-3">
                     <button type="submit" class="btn btn-primary w-30">Filter</button>
                 </div>
@@ -52,6 +53,8 @@
             <th>@Html.DisplayNameFor(model => model.Category)</th>
             <th>@Html.DisplayNameFor(model => model.Priority)</th>
             <th>@Html.DisplayNameFor(model => model.Country)</th>
+            <th>@Html.DisplayNameFor(model => model.City)</th>
+            
             
         </tr>
     </thead>
@@ -64,6 +67,7 @@
                 <td>@Html.DisplayFor(model => item.Category)</td>
                 <td>@Html.DisplayFor(model => item.Priority)</td>
                 <td>@Html.DisplayFor(model => item.Country.Name)</td>
+                <td>@Html.DisplayFor(model => item.City.Name)</td>
                 <td>
                     <a asp-action="Edit" class="btn btn-secondary" asp-route-id="@item.Id">Edit</a> |
                     <form class="d-inline" typeof="submit" asp-action="Delete" asp-route-id="@item.Id" method="post">

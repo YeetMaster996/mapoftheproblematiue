@@ -15,43 +15,53 @@
 
         </div>
         <div class="form-group ">
-            <label asp-for="Name" class="control-label"></label>
-            <input asp-for="Name" class="form-control" />
-            <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
 
-        </div>
-        <div class="form-group">
-            <label asp-for="Category" class="control-label"></label>
-            <select asp-for="Category" class="form-control" asp-items="ViewBag.ProblemType">
-                <option value="">-- Select Problem Type --</option>
-            </select>
-            <span asp-validation-for="Category" class="text-danger"></span>
 
-        </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <select asp-for="Category" class="form-control" asp-items="ViewBag.ProblemType">
+                    <option value="">-- Select Problem Type --</option>
+                </select>
+                <span asp-validation-for="Category" class="text-danger"></span>
+
+            </div>
 
        
-        <div class="form-group">
-            <label asp-for="Description" class="control-label"></label>
-            <textarea rows="4" asp-for="Description" class="form-control"></textarea>
-            <span asp-validation-for="Description" class="text-danger"></span>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea rows="4" asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
 
 
-        </div>
-        <div class="form-group">
-            <label asp-for="Priority" class="control-label"></label>
-            <input asp-for="Priority" class="form-control" />
-            <small class="form-text text-muted">lower number translates to higher priority with the highest being 1 </small>
-            <span asp-validation-for="Priority" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Priority" class="control-label"></label>
+                <input asp-for="Priority" class="form-control" />
+                <small class="form-text text-muted">lower number translates to higher priority with the highest being 1 </small>
+                <span asp-validation-for="Priority" class="text-danger"></span>
 
-        </div>
-        <div class="form-group">
-            <label asp-for="Country" class="control-label"></label>
-            <select asp-for="CountryId" class="form-control" asp-items="ViewBag.Countries">
-                <option value="">-- Select Country --</option>
-            </select>
-            <span asp-validation-for="CountryId" class="text-danger"></span>
+            </div>
 
-        </div>
+            <div class="form-group">
+                <label asp-for="Country" class="control-label"></label>
+                <select asp-for="CountryId" class="form-control" asp-items="ViewBag.Countries" onchange="getCities(this.value)">
+                    <option value="">-- Select Country --</option>
+                </select>
+                <span asp-validation-for="CountryId" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="City" class="control-label"></label>
+                <select asp-for="CityId" class="form-control" onchange="function()">
+                    <option value="">-- Select Country to load Cities --</option>
+                </select>
+                <span asp-validation-for="CityId" class="text-danger"></span>
+
+            </div>
 
      
         <div class="form-group mt-3">
@@ -74,3 +84,29 @@
 
     }
 }
+<script>
+            function getCities(countryId) {
+        
+         
+               
+                $.ajax({
+                    url: '/Problem/GetCities', 
+                    type: 'GET',
+                    data: { countryId: countryId },
+                    success: function(data) {
+                
+                        var stateDropdown = $('#CityId');
+                        stateDropdown.empty(); // Clear existing options
+                        $.each(data, function(index, city) {
+                            stateDropdown.append($('<option>', {
+                                value: city.id,
+                                text: city.name
+                            }));
+                        });
+                    },
+                    error: function() {
+                        alert('Error fetching Cities.');
+                    }
+                });
+            }
+    </script>

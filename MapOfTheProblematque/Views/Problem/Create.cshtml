@@ -74,14 +74,13 @@
             function getCities(countryId) {
         
          
-                // Display the selected country ID in an alert
-                // Make an AJAX request to fetch states based on the selected country
+               
                 $.ajax({
-                    url: '/Problem/GetCities', // Replace with your actual controller and action
+                    url: '/Problem/GetCities', 
                     type: 'GET',
                     data: { countryId: countryId },
                     success: function(data) {
-                        // Populate the states dropdown with the received data
+                
                         var stateDropdown = $('#CityId');
                         stateDropdown.empty(); // Clear existing options
                         $.each(data, function(index, city) {
