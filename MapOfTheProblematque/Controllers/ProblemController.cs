@@ -153,6 +153,16 @@ namespace MapOfTheProblematque.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        //public IActionResult Recursion(int number)
+        //{
+        //    recursion.recursion(number);
+        //    int factorialResult = recursion.ReverseCountFactorialRecursion(5);
+        //    int sumResult = recursion.SumOfHunderd(100);
+        //    ViewBag.FactorialResult = factorialResult;
+        //    ViewBag.SumResult = sumResult;
+        //    return View();
+        //}
         public IActionResult Delete(int id)
         {
             var problem = _context.Problem.Find(id);
