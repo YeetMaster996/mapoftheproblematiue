@@ -179,9 +179,9 @@ namespace MapOfTheProblematque.Controllers
             return Json(cities);
 
         }
-        public async Task<JsonResult> IsProblemAvailable(string Name, int? id)
+        public async Task<JsonResult> IsProblemAvailable(string Name, int Id)
         {
-            var problem = await _context.Problem.FirstOrDefaultAsync(o => o.Name == Name && o.Id != id);
+            var problem = await _context.Problem.FirstOrDefaultAsync(o => o.Name.ToLower() == Name.ToLower() && o.Id != Id);
             if (problem == null)
             {
                 return Json(true);
