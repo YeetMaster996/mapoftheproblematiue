@@ -1,0 +1,87 @@
+﻿@model MapOfTheProblematique.Models.StudyClass
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container my-auto">
+    <div class="row justify-content-center">
+
+        <div class="row col-md-6">
+            <div class="card shadow-sm border-0 rounded-4 p-md-5">
+
+                <h3>Cascade Dropdown x3</h3>
+                <hr />
+                
+
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <select asp-for="Id" class="form-select" asp-items="ViewBag.Classes" onchange="getSubjects(this.value)">
+                        <option value="">-- Select Class --</option>
+                    </select>
+                    <span asp-validation-for="Id" class="text-danger"></span>
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="StudySubjects[0].Name" class="control-label"></label>
+                    <select asp-for="StudySubjects[0].Id" class="form-select" onchange="getTopics(this.value)">
+                        <option value="">-- Select Class to load Subject --</option>
+                    </select>
+                    <span asp-validation-for="StudySubjects[0].Id" class="text-danger"></span>
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="StudySubjects[0].StudyTopics[0].Name" class="control-label"></label>
+                    <select asp-for="StudySubjects[0].StudyTopics[0].Id" class="form-select">
+                        <option value="">-- Select Subject to load Topic --</option>
+                    </select>
+                    <span asp-validation-for="StudySubjects[0].StudyTopics[0].Id" class="text-danger"></span>
+
+                </div>
+
+        
+                
+                   
+
+               
+
+       
+               
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function getSubjects(classId) {
+
+        
+         
+        $.ajax({
+            url: '/CascadeDropDown/GetSubjects',
+            type: 'GET',
+            data: { Id: classId },
+            success: function(data) {
+
+                var stateDropdown = $('#SubjectId');
+                stateDropdown.empty(); // Clear existing options
+                $.each(data, function(index, subject) {
+                    stateDropdown.append($('<option>', {
+                        value: subject.id,
+                        text: subject.name
+                    }));
+                });
+            },
+            error: function() {
+                alert('Error fetching Subjects.');
+            }
+        });
+    }
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+    }
+}
