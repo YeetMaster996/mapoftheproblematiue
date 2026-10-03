@@ -46,12 +46,21 @@
         </div>
         <div class="form-group">
             <label asp-for="Country" class="control-label"></label>
-            <select asp-for="CountryId" class="form-control" asp-items="ViewBag.Countries">
+            <select asp-for="CountryId" class="form-control" asp-items="ViewBag.Countries" onchange="getCities()">
                 <option value="">-- Select Country --</option>
             </select>
             <span asp-validation-for="CountryId" class="text-danger"></span>
 
         </div>
+        <div class="form-group">
+            <label asp-for="City" class="control-label"></label>
+            <select asp-for="CityId" class="form-control">
+                <option value="">-- Select Country to load Cities --</option>
+            </select>
+            <span asp-validation-for="CityId" class="text-danger"></span>
+
+        </div>
+
 
      
         <div class="form-group mt-3">
@@ -67,10 +76,47 @@
     <a class="btn btn-info d-inline" asp-action="Index">Back to List</a>
 </div> *@
 
+<script>
+    function getCities() {
 
+        var countryId = $('#CountryId').val(); // Get the selected country ID from the dropdown
+        
+        // Display the selected country ID in an alert
+        // Make an AJAX request to fetch states based on the selected country
+        $.ajax({
+            url: '/Problem/GetCities', // Replace with your actual controller and action
+            type: 'GET',
+            data: { countryId: countryId },
+            success: function(data) {
+                // Populate the states dropdown with the received data
+                var stateDropdown = $('#CityId');
+                stateDropdown.empty(); // Clear existing options
+                $.each(data, function(index, city) {
+                    stateDropdown.append($('<option>', {
+                        value: city.id,
+                        text: city.name
+                    }));
+                });
+            },
+            error: function() {
+                alert('Error fetching Cities.');
+            }
+        });
+    }
+   
+
+</script>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
 
     }
+
+     <script>
+$(document).ready(function() {
+      getCities(); // Call the function to load cities when the page is ready
+    
+       
+    });
+</script>
 }
