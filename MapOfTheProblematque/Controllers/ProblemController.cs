@@ -19,7 +19,7 @@ namespace MapOfTheProblematque.Controllers
         public IActionResult Index(string Name, string Description, string Category, int CountryId)
         {
 
-            var problems = _context.Problem.Include(c => c.Country).AsQueryable();
+            var problems = _context.Problem.Include(c => c.Country).Include(c=>c.City).AsQueryable();
             if (!string.IsNullOrEmpty(Name))
             {
                 problems = problems.Where(p => p.Name.Contains(Name));
