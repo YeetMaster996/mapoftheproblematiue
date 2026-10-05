@@ -26,5 +26,10 @@ namespace MapOfTheProblematique.Controllers
 
             return Json(subjects);
         }
+        public JsonResult GetTopics(int Id)
+        { var topics = _context.StudyTopic.Where(s => s.StudySubjectId == Id).ToList();
+
+            return Json(topics);
+        }
     }
 }

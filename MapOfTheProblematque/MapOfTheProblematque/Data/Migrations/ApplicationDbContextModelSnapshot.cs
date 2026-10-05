@@ -41,7 +41,7 @@ namespace MapOfTheProblematque.Data.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("City");
+                    b.ToTable("City", (string)null);
                 });
 
             modelBuilder.Entity("MapOfTheProblematique.Models.Country", b =>
@@ -58,7 +58,7 @@ namespace MapOfTheProblematque.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Country");
+                    b.ToTable("Country", (string)null);
                 });
 
             modelBuilder.Entity("MapOfTheProblematique.Models._3_Layer_Cascade.StudyClass", b =>
@@ -75,7 +75,7 @@ namespace MapOfTheProblematque.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("StudyClass");
+                    b.ToTable("StudyClass", (string)null);
                 });
 
             modelBuilder.Entity("MapOfTheProblematique.Models._3_Layer_Cascade.StudySubject", b =>
@@ -97,7 +97,7 @@ namespace MapOfTheProblematque.Data.Migrations
 
                     b.HasIndex("StudyClassId");
 
-                    b.ToTable("StudySubject");
+                    b.ToTable("StudySubject", (string)null);
                 });
 
             modelBuilder.Entity("MapOfTheProblematique.Models._3_Layer_Cascade.StudyTopic", b =>
@@ -119,7 +119,7 @@ namespace MapOfTheProblematque.Data.Migrations
 
                     b.HasIndex("StudySubjectId");
 
-                    b.ToTable("StudyTopic");
+                    b.ToTable("StudyTopic", (string)null);
                 });
 
             modelBuilder.Entity("MapOfTheProblematque.Models.Problem", b =>
@@ -157,7 +157,7 @@ namespace MapOfTheProblematque.Data.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Problem");
+                    b.ToTable("Problem", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
