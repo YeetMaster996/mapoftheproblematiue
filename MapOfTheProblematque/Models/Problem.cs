@@ -1,5 +1,6 @@
 ﻿using MapOfTheProblematique.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -24,13 +25,12 @@ namespace MapOfTheProblematque.Models
         public string Category { get; set; }
 
         [Display(Name = "Priority")]
-        
+         
         public int? Priority { get; set; }
     
-        public int CountryId { get; set; }
-       
-        public Country? Country  { get; set; }
+   
         public int? CityId { get; set; }
+        [ValidateNever]
         public City? City { get; set; }
 
     }

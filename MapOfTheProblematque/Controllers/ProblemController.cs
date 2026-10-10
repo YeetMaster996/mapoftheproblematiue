@@ -19,7 +19,7 @@ namespace MapOfTheProblematque.Controllers
         public IActionResult Index(string Name, string Description, string Category, int CountryId)
         {
 
-            var problems = _context.Problem.Include(c => c.Country).Include(c=>c.City).AsQueryable();
+            var problems = _context.Problem.Include(c => c.City).ThenInclude( c => c.Country).AsQueryable();
             if (!string.IsNullOrEmpty(Name))
             {
                 problems = problems.Where(p => p.Name.Contains(Name));
@@ -35,7 +35,7 @@ namespace MapOfTheProblematque.Controllers
             }
             if (CountryId != 0)
             {
-                problems = problems.Where(p => p.CountryId == CountryId);
+                problems = problems.Where(p => p.City.CountryId == CountryId);
             }
 
             var problemTypes = LookUp.GetProblemTypes();
@@ -56,7 +56,7 @@ namespace MapOfTheProblematque.Controllers
 
             ViewBag.ProblemType = new SelectList(problemTypes, "Value", "Text");
             ViewBag.Countries = new SelectList(_context.Country, "Id", "Name");
-            return View();
+            return View(new Problem());
         }
 
 
@@ -64,6 +64,11 @@ namespace MapOfTheProblematque.Controllers
         [HttpPost]
         public IActionResult Create(Problem problem)
         {
+            problem.City = null;
+        
+            var problemTypes = LookUp.GetProblemTypes();
+            ViewBag.ProblemType = new SelectList(problemTypes, "Value", "Text");
+            ViewBag.Countries = new SelectList(_context.Country, "Id", "Name");
             if (ModelState.IsValid)
             {
 
@@ -74,10 +79,9 @@ namespace MapOfTheProblematque.Controllers
 
 
             }
-            var problemTypes = LookUp.GetProblemTypes();
+        
 
-            ViewBag.ProblemType = new SelectList(problemTypes, "Value", "Text");
-            ViewBag.Countries = new SelectList(_context.Country, "Id", "Name");
+            
 
             return View(problem);
         }
@@ -175,7 +179,7 @@ namespace MapOfTheProblematque.Controllers
         }
         public IActionResult GetCities(int CountryId)
         {
-            var cities = _context.City.Where(c => c.Country.Id == CountryId).Select(c => new { c.Id, c.Name }).ToList();
+            var cities = _context.City.Where(c => c.Country.Id == CountryId).Select(c => new { c.CityId, c.CityName }).ToList();
             return Json(cities);
 
         }

@@ -4,6 +4,7 @@ using MapOfTheProblematque.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MapOfTheProblematque.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20261007095345_RemovedCountryFromProblem")]
+    partial class RemovedCountryFromProblem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,7 +44,7 @@ namespace MapOfTheProblematque.Data.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("City", (string)null);
+                    b.ToTable("City");
                 });
 
             modelBuilder.Entity("MapOfTheProblematique.Models.Country", b =>
@@ -58,10 +61,10 @@ namespace MapOfTheProblematque.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Country", (string)null);
+                    b.ToTable("Country");
                 });
 
-            modelBuilder.Entity("MapOfTheProblematique.Models._3_Layer_Cascade.StudyClass", b =>
+            modelBuilder.Entity("MapOfTheProblematique.Models.StudyClass", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -75,10 +78,10 @@ namespace MapOfTheProblematque.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("StudyClass", (string)null);
+                    b.ToTable("StudyClass");
                 });
 
-            modelBuilder.Entity("MapOfTheProblematique.Models._3_Layer_Cascade.StudySubject", b =>
+            modelBuilder.Entity("MapOfTheProblematique.Models.StudySubject", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -97,10 +100,10 @@ namespace MapOfTheProblematque.Data.Migrations
 
                     b.HasIndex("StudyClassId");
 
-                    b.ToTable("StudySubject", (string)null);
+                    b.ToTable("StudySubject");
                 });
 
-            modelBuilder.Entity("MapOfTheProblematique.Models._3_Layer_Cascade.StudyTopic", b =>
+            modelBuilder.Entity("MapOfTheProblematique.Models.StudyTopic", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -119,7 +122,7 @@ namespace MapOfTheProblematque.Data.Migrations
 
                     b.HasIndex("StudySubjectId");
 
-                    b.ToTable("StudyTopic", (string)null);
+                    b.ToTable("StudyTopic");
                 });
 
             modelBuilder.Entity("MapOfTheProblematque.Models.Problem", b =>
@@ -137,9 +140,6 @@ namespace MapOfTheProblematque.Data.Migrations
                     b.Property<int?>("CityId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CountryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -155,9 +155,7 @@ namespace MapOfTheProblematque.Data.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.HasIndex("CountryId");
-
-                    b.ToTable("Problem", (string)null);
+                    b.ToTable("Problem");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -373,9 +371,9 @@ namespace MapOfTheProblematque.Data.Migrations
                     b.Navigation("Country");
                 });
 
-            modelBuilder.Entity("MapOfTheProblematique.Models._3_Layer_Cascade.StudySubject", b =>
+            modelBuilder.Entity("MapOfTheProblematique.Models.StudySubject", b =>
                 {
-                    b.HasOne("MapOfTheProblematique.Models._3_Layer_Cascade.StudyClass", "StudyClass")
+                    b.HasOne("MapOfTheProblematique.Models.StudyClass", "StudyClass")
                         .WithMany("StudySubjects")
                         .HasForeignKey("StudyClassId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -384,9 +382,9 @@ namespace MapOfTheProblematque.Data.Migrations
                     b.Navigation("StudyClass");
                 });
 
-            modelBuilder.Entity("MapOfTheProblematique.Models._3_Layer_Cascade.StudyTopic", b =>
+            modelBuilder.Entity("MapOfTheProblematique.Models.StudyTopic", b =>
                 {
-                    b.HasOne("MapOfTheProblematique.Models._3_Layer_Cascade.StudySubject", "StudySubject")
+                    b.HasOne("MapOfTheProblematique.Models.StudySubject", "StudySubject")
                         .WithMany("StudyTopics")
                         .HasForeignKey("StudySubjectId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -401,15 +399,7 @@ namespace MapOfTheProblematque.Data.Migrations
                         .WithMany()
                         .HasForeignKey("CityId");
 
-                    b.HasOne("MapOfTheProblematique.Models.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("City");
-
-                    b.Navigation("Country");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -468,12 +458,12 @@ namespace MapOfTheProblematque.Data.Migrations
                     b.Navigation("Cities");
                 });
 
-            modelBuilder.Entity("MapOfTheProblematique.Models._3_Layer_Cascade.StudyClass", b =>
+            modelBuilder.Entity("MapOfTheProblematique.Models.StudyClass", b =>
                 {
                     b.Navigation("StudySubjects");
                 });
 
-            modelBuilder.Entity("MapOfTheProblematique.Models._3_Layer_Cascade.StudySubject", b =>
+            modelBuilder.Entity("MapOfTheProblematique.Models.StudySubject", b =>
                 {
                     b.Navigation("StudyTopics");
                 });
