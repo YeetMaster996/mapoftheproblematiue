@@ -11,6 +11,7 @@
 *.sln.docstates
 *.mdf
 *.ldf
+MapOfTheProblematque\Utilities\Email.cs
 
 
 # User-specific files (MonoDevelop/Xamarin Studio)
