@@ -66,8 +66,8 @@ namespace MapOfTheProblematque.Controllers
         {
             problem.City = null;
         
-            var problemTypes = LookUp.GetProblemTypes();
-            ViewBag.ProblemType = new SelectList(problemTypes, "Value", "Text");
+          
+            ViewBag.ProblemType = new SelectList(LookUp.GetProblemTypes(), "Value", "Text");
             ViewBag.Countries = new SelectList(_context.Country, "Id", "Name");
             if (ModelState.IsValid)
             {
@@ -182,6 +182,15 @@ namespace MapOfTheProblematque.Controllers
             var cities = _context.City.Where(c => c.Country.Id == CountryId).Select(c => new { c.CityId, c.CityName }).ToList();
             return Json(cities);
 
+        }
+        public IActionResult GetProblemTypeText(string value)
+        {
+            var problemType = LookUp.GetProblemTypes().FirstOrDefault(pt => pt.Value == value);
+            if (problemType != null)
+            {
+                return Json(problemType.Text);
+            }
+            return Json(string.Empty);
         }
         public async Task<JsonResult> IsProblemAvailable(string Name, int Id)
         {

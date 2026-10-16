@@ -21,6 +21,15 @@ namespace MapOfTheProblematique.Controllers
             ViewBag.Classes = new SelectList(_context.StudyClass, "Id", "Name");
             return View();
         }  
+        public IActionResult JqueryStuff()
+        {
+            return View();
+        }
+        public IActionResult BootStrapStuff()
+        {
+            return View();
+
+        }
         public JsonResult GetSubjects(int Id)
         { var subjects = _context.StudySubject.Where(s => s.StudyClassId == Id).ToList();
 

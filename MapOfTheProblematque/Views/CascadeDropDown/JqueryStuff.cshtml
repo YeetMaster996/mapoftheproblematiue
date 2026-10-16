@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Jquery Stuff";
+}
+<div class="btn-group">
+<a class="btn btn-secondary" id="showHideToggleBtn" >Toggle Content</a>
+<a class="btn btn-secondary" id="showHideFadeToggleBtn" >Toggle Fade Content</a>
+<a class="btn btn-secondary" id="slideToggleBtn" >Toggle Slide Content</a>
+<a class="btn btn-secondary" id="appendContentBtn" >Append Content</a>
+<a class="btn btn-secondary" id="clickyBtn" >Clicky Content</a>
+
+</div>
+<p>content content content content content content content content content content content content content content content content</p>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $("#showHideToggleBtn").click(function() {
+                $("p").toggle();
+            });
+            $("#showHideFadeToggleBtn").click(function() {
+                $("p").fadeToggle("slow");
+            });
+            $("#slideToggleBtn").click(function() {
+                $("p").slideToggle("slow");
+            });
+            $("#clickyBtn").click(function() {
+                alert("Button clicked!");
+            });
+
+            $("#appendContentBtn").click(function() {
+                $("p").append(" more content");
+            });
+        });
+
+    </script>}
+
