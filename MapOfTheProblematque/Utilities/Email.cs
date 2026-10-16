@@ -24,6 +24,7 @@ namespace MapOfTheProblematque.Utilities
             CC = cc;
         }
 
+
         public bool Send()
         {
             bool isSent = false;
